@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script type='text/javascript' src='https://files09.oaiusercontent.com/YdIrG1gInGR_7YMQwdpgRF-oh5XNamMSQY90s3Ri4pODlVdCbhvD_V_85r-P0D9xI2LaiHgciDCxHbHFPGw8tw=='>const surpriseAudio = document.getElementById('surprise-audio');
+const birthdayAudio = document.getElementById('birthday-audio');
+
+surpriseAudio.addEventListener('ended', () => {
+  birthdayAudio.play();
+});
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarjeta con Slider</title>
+  <style>
+    body, html {
+      font-family: 'Dancing Script', cursive;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #e3f2fd;
+      overflow: hidden;
+    }
+
+    .wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1200px;
+    }
+
+    .envelope {
+      width: 100vw;
+      height: 100vh;
+      background-color: #1565c0;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border: 4px solid #0d47a1;
+      box-sizing: border-box;
+    }
+
+    .envelope::before, .envelope::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      background: transparent;
+      border: 4px solid #0d47a1;
+      box-sizing: border-box;
+    }
+
+    .envelope::before {
+      top: 0;
+      border-bottom: none;
+    }
+
+    .envelope::after {
+      bottom: 0;
+      border-top: none;
+    }
+
+    .flap {
+      width: 100%;
+      height: 50%;
+      background-color: #0d47a1;
+      position: absolute;
+      top: 0;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transition: transform 1s ease-in-out;
+      transform-origin: top center;
+      z-index: 2;
+    }
+
+    .seal {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform: translateX(-50%) scale(1);
+      background: #f44336;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 20px;
+      z-index: 3;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .envelope.open .seal {
+      opacity: 0;
+      transform: translateX(-50%) scale(0);
+    }
+
+    .paper {
+      border: 6px double #0d47a1;
+      outline: 4px solid #bbdefb;
+      outline-offset: -10px;
+      width: 80vw;
+      max-width: 600px;
+      background: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      padding: 30px;
+      box-sizing: border-box;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      border-radius: 10px;
+      text-align: center;
+      opacity: 0;
+      transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+      z-index: 1;
+    }
+
+    .envelope.open .flap {
+      transform: rotateX(-180deg);
+    }
+
+    .envelope.open .paper {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
+    .slider-wrapper {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      margin: 20px auto;
+    }
+
+    .slider-wrapper::before,
+    .slider-wrapper::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 80px;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .slider-wrapper::before {
+      left: 0;
+      background: linear-gradient(to right, #fff, transparent);
+    }
+
+    .slider-wrapper::after {
+      right: 0;
+      background: linear-gradient(to left, #fff, transparent);
+    }
+
+    .slider-track {
+      display: flex;
+      gap: 60px;
+      animation: scroll 14s linear infinite;
+      width: calc(16 * 210px);
+    }
+
+    .slide {
+      flex: 0 0 auto;
+      width: 150px;
+      height: 200px;
+      background: white;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 480px) {
+      .flap {
+        clip-path: polygon(0 0, 100% 0, 50% 90%);
+      }
+
+      .paper h1 {
+        font-size: 20px;
+        white-space: nowrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="envelope" onclick="openEnvelope(this)">
+      <div class="flap"></div>
+      <div class="seal">Que lo abra el mejor padre</div>
+      <div class="paper">
+        <h1>🎉🎈Feliz Cumpleaños Padre🎈🎉</h1>
+        <div class="slider-wrapper">
+          <div class="slider-track">
+            <div class="slide"><img src="912b81c9-22a2-4a18-beaa-c37de71d8441.JPG" alt="foto" /></div>
+            <div class="slide"><img src="IMG_1537.jpg" alt="foto" /></div>
+            <div class="slide"><img src="IMG_4284.jpg" alt="foto" /></div>
+            <div class="slide"><img src="IMG_1776.jpg" alt="foto" /></div>
+            <div class="slide"><img src="IMG_2014.jpg" alt="foto" /></div>
+            <div class="slide"><img src="E8AC199C-DDF8-4164-A7E4-1FA9A2DC649E.JPG" alt="foto" /></div>
+            <div class="slide"><img src="IMG_4119.jpg" alt="foto" /></div>
+            <div class="slide"><img src="IMG_4237.JPG" alt="foto" /></div>
+            <!-- Repetidas para loop -->
+            <div class="slide"><img src="912b81c9-22a2-4a18-beaa-c37de71d8441.JPG" alt="foto" /></div>
+            <div class="slide"><img src="IMG_1537.jpg" alt="foto" /></div>
+            <div class="slide"><img src="IMG_4284.jpg" alt="foto" /></div>
+            <div class="slide"><img src="IMG_1776.jpg" alt="foto" /></div>
+            <div class="slide"><img src="IMG_2014.jpg" alt="foto" /></div>
+            <div class="slide"><img src="E8AC199C-DDF8-4164-A7E4-1FA9A2DC649E.JPG" alt="foto" /></div>
+            <div class="slide"><img src="IMG_4119.jpg" alt="foto" /></div>
+            <div class="slide"><img src="IMG_4237.JPG" alt="foto" /></div>
+          </div>
+        </div>
+        <p>Gracias por ser mi ejemplo, mi apoyo y mi razon de vivir. Te amo mucho, estoy muy orgulloso de tus logros y de ser tu hijo, recuerda que siempre voy a estar para vos sin importar que. Nos vemos pronto para celebrar🎉🎉🎉</p>
+        <button onclick="document.getElementById('birthday-audio').pause(); document.getElementById('surprise-audio').play()" style="margin-top: 10px; padding: 10px 20px; font-size: 16px; border-radius: 8px; background-color: #03a9f4; color: white; border: none; cursor: pointer;">🎵 Pícale aquí para una sorpresa</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const container = document.querySelector('.envelope');
+    let particles = [];
+    let fireworksInterval = null;
+
+    function createSingleFirework() {
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight / 2;
+      const count = 60 + Math.floor(Math.random() * 40);
+      const colors = ['white', 'red', 'blue'];
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 * i) / count;
+        const speed = Math.random() * 3 + 1;
+        particles.push({
+          x: x,
+          y: y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          alpha: 1,
+          radius: Math.random() * 2 + 0.5,
+          decay: 0.004 + Math.random() * 0.004,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
+      }
+    }
+
+    function updateParticles() {
+      container.querySelectorAll('.firework').forEach(f => f.remove());
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.alpha -= p.decay;
+        if (p.alpha <= 0) {
+          particles.splice(i, 1);
+        } else {
+          const dot = document.createElement('div');
+          dot.className = 'firework';
+          dot.style.width = `${p.radius * 2}px`;
+          dot.style.height = `${p.radius * 2}px`;
+          dot.style.borderRadius = '50%';
+          dot.style.backgroundColor = p.color;
+          dot.style.left = `${p.x}px`;
+          dot.style.top = `${p.y}px`;
+          dot.style.opacity = p.alpha;
+          dot.style.position = 'absolute';
+          dot.style.transition = 'opacity 0.4s linear';
+          container.appendChild(dot);
+          p.x += p.vx;
+          p.y += p.vy;
+        }
+      }
+    }
+
+    function loop() {
+      updateParticles();
+      requestAnimationFrame(loop);
+    }
+
+    function launchFireworksRandomly() {
+      createSingleFirework();
+    }
+
+    function openEnvelope(el) {
+      if (el.classList.contains('open')) return;
+      el.classList.add('open');
+      createSingleFirework();
+      const audio = document.getElementById('birthday-audio');
+      if (audio) audio.play();
+      if (!fireworksInterval) {
+        fireworksInterval = setInterval(launchFireworksRandomly, 800);
+      }
+    }
+
+    loop();
+  </script>
+  <audio id="birthday-audio" src="hincha.mp3"></audio>
+  <audio id="surprise-audio" src="sorpresa.mp3"></audio>
+</body>
+</html>
